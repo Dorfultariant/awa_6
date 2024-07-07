@@ -32,6 +32,29 @@ class Plane extends Vehicle {
 let vehicle_list: Array<Vehicle | Car | Boat | Plane> = [];
 
 
+/*
+ Test jsons: (Am too lazy to write unit tests for this weekly task)
+
+ test: http://localhost:3000/vehicle/search/Boring generic vehicle
+ {
+ "model": "Boring generic vehicle",
+ "color": "Red",
+ "year": 1993,
+ "power": 60
+ }
+
+ http://localhost:3000/vehicle/search/Ford focus
+ {
+ "model": "Ford focus",
+ "color": "Red",
+ "year": 2002,
+ "power": 60,
+ "bodyType": "sedan",
+ "wheelCount": 3
+ }
+
+ */
+
 app.post("/vehicle/add", async (req, res) => {
     try {
         // Yes this is horrible looking:
@@ -44,8 +67,8 @@ app.post("/vehicle/add", async (req, res) => {
                 color: req.body.color,
                 year: req.body.year,
                 power: req.body.power,
-                wheelCount: req.body.wheelCount,
-                bodyType: req.body.bodyType
+                bodyType: req.body.bodyType,
+                wheelCount: req.body.wheelCount
             };
             vehicle_list.push(new_car);
 
@@ -87,7 +110,7 @@ app.post("/vehicle/add", async (req, res) => {
         }
 
         console.log(vehicle_list);
-        res.status(201).send(`Vehicle added ${req.body.model}`);
+        res.status(201).send(`Vehicle added`);
 
     } catch (err) {
         console.error("Error while adding vehicle: ", err);
@@ -97,10 +120,13 @@ app.post("/vehicle/add", async (req, res) => {
 
 
 // Route to find vehicle with specific model
+
 app.get("/vehicle/search/:model", async (req, res) => {
 
     try {
         const found = vehicle_list.find((vehi) => vehi.model === req.params.model);
+
+        console.log(found);
 
         if (found) {
             console.log("Found vehicle:", found);

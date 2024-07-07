@@ -36,8 +36,8 @@ app.post("/vehicle/add", (req, res) => __awaiter(void 0, void 0, void 0, functio
                 color: req.body.color,
                 year: req.body.year,
                 power: req.body.power,
-                wheelCount: req.body.wheelCount,
-                bodyType: req.body.bodyType
+                bodyType: req.body.bodyType,
+                wheelCount: req.body.wheelCount
             };
             vehicle_list.push(new_car);
         }
@@ -71,7 +71,7 @@ app.post("/vehicle/add", (req, res) => __awaiter(void 0, void 0, void 0, functio
             vehicle_list.push(new_vehi);
         }
         console.log(vehicle_list);
-        res.status(201).send(`Vehicle added ${req.body.model}`);
+        res.status(201).send(`Vehicle added`);
     }
     catch (err) {
         console.error("Error while adding vehicle: ", err);
@@ -82,6 +82,7 @@ app.post("/vehicle/add", (req, res) => __awaiter(void 0, void 0, void 0, functio
 app.get("/vehicle/search/:model", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const found = vehicle_list.find((vehi) => vehi.model === req.params.model);
+        console.log(found);
         if (found) {
             console.log("Found vehicle:", found);
             res.status(200).json(found);
