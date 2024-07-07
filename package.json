@@ -1,0 +1,18 @@
+{
+    "name": "awa_6",
+    "version": "1.0.0",
+    "description": "Sixth week ts task",
+    "main": "index.js",
+    "scripts": {
+        "start": "npx tsc && node ./dist/app.js"
+    },
+    "author": "TH",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.19.2"
+    },
+    "devDependencies": {
+        "@types/express": "^4.17.21",
+        "typescript": "^5.5.3"
+    }
+}
