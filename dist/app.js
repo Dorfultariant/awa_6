@@ -25,62 +25,40 @@ class Boat extends Vehicle {
 class Plane extends Vehicle {
 }
 // Init empty list of vehicles
+// let vehicle_list: Vehicle[] = [];
 let vehicle_list = [];
-/*
-// Route to add vehicles
-app.post("/vehicle/add", (req, res) => {
-    try {
-        // console.log(req.body);
-
-        const new_vehi: Vehicle = {
-            model: req.body.model,
-            color: req.body.color,
-            year: req.body.year,
-            power: req.body.power
-        };
-
-        vehicle_list.push(new_vehi);
-
-        res.status(201).send("Vehicle added");
-        console.log(vehicle_list);
-
-    } catch (err) {
-        console.error("Error while adding vehicle: ", err);
-        res.status(500).send("Error");
-    }
-});*/
 app.post("/vehicle/add", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { model, color, year, power, wheelCount, bodyType, draft, wingspan } = req.body;
-        console.log(req.body);
-        if (wheelCount !== undefined && bodyType !== undefined) {
+        // Yes this is horrible looking:
+        console.log("Request body contents: ", req.body);
+        if (req.body.wheelCount !== undefined && req.body.bodyType !== undefined) {
             const new_car = {
-                model,
-                color,
-                year,
-                power,
-                wheelCount,
-                bodyType
+                model: req.body.model,
+                color: req.body.color,
+                year: req.body.year,
+                power: req.body.power,
+                wheelCount: req.body.wheelCount,
+                bodyType: req.body.bodyType
             };
             vehicle_list.push(new_car);
         }
-        else if (draft !== undefined) {
+        else if (req.body.draft !== undefined) {
             const new_boat = {
-                model,
-                color,
-                year,
-                power,
-                draft
+                model: req.body.model,
+                color: req.body.color,
+                year: req.body.year,
+                power: req.body.power,
+                draft: req.body.draft
             };
             vehicle_list.push(new_boat);
         }
-        else if (wingspan !== undefined) {
+        else if (req.body.wingspan !== undefined) {
             const new_plane = {
-                model,
-                color,
-                year,
-                power,
-                wingspan
+                model: req.body.model,
+                color: req.body.color,
+                year: req.body.year,
+                power: req.body.power,
+                wingspan: req.body.wingspan
             };
             vehicle_list.push(new_plane);
         }
@@ -94,7 +72,7 @@ app.post("/vehicle/add", (req, res) => __awaiter(void 0, void 0, void 0, functio
             vehicle_list.push(new_vehi);
         }
         console.log(vehicle_list);
-        res.status(201).send("Vehicle added");
+        res.status(201).send(`Vehicle added ${req.body.model}`);
     }
     catch (err) {
         console.error("Error while adding vehicle: ", err);

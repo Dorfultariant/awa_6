@@ -28,48 +28,49 @@ class Plane extends Vehicle {
 
 
 // Init empty list of vehicles
-let vehicle_list: Vehicle[] = [];
+// let vehicle_list: Vehicle[] = [];
+
+let vehicle_list: Array<Vehicle | Car | Boat | Plane> = [];
 
 
 app.post("/vehicle/add", async (req, res) => {
     try {
         // Yes this is horrible looking:
+        console.log("Request body contents: ", req.body);
 
-        const { model, color, year, power, wheelCount, bodyType, draft, wingspan } = req.body;
-
-        if (wheelCount !== undefined && bodyType !== undefined) {
+        if (req.body.wheelCount !== undefined && req.body.bodyType !== undefined) {
 
             const new_car: Car = {
-                model,
-                color,
-                year,
-                power,
-                wheelCount,
-                bodyType
+                model: req.body.model,
+                color: req.body.color,
+                year: req.body.year,
+                power: req.body.power,
+                wheelCount: req.body.wheelCount,
+                bodyType: req.body.bodyType
             };
             vehicle_list.push(new_car);
 
 
-        } else if (draft !== undefined) {
+        } else if (req.body.draft !== undefined) {
 
             const new_boat: Boat = {
-                model,
-                color,
-                year,
-                power,
-                draft
+                model: req.body.model,
+                color: req.body.color,
+                year: req.body.year,
+                power: req.body.power,
+                draft: req.body.draft
             };
             vehicle_list.push(new_boat);
 
 
-        } else if (wingspan !== undefined) {
+        } else if (req.body.wingspan !== undefined) {
 
             const new_plane: Plane = {
-                model,
-                color,
-                year,
-                power,
-                wingspan
+                model: req.body.model,
+                color: req.body.color,
+                year: req.body.year,
+                power: req.body.power,
+                wingspan: req.body.wingspan
             };
             vehicle_list.push(new_plane);
 
@@ -87,7 +88,8 @@ app.post("/vehicle/add", async (req, res) => {
         }
 
         console.log(vehicle_list);
-        res.status(201).send("Vehicle added");
+        res.status(201).send(`Vehicle added ${req.body.model}`);
+
     } catch (err) {
         console.error("Error while adding vehicle: ", err);
         res.status(500).send("Error");
