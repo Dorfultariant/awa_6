@@ -14,8 +14,8 @@ class Vehicle {
 }
 
 class Car extends Vehicle {
-    "wheelCount": number;
     "bodyType": string;
+    "wheelCount": number;
 }
 
 class Boat extends Vehicle {
@@ -28,7 +28,6 @@ class Plane extends Vehicle {
 
 
 // Init empty list of vehicles
-// let vehicle_list: Vehicle[] = [];
 
 let vehicle_list: Array<Vehicle | Car | Boat | Plane> = [];
 
@@ -102,7 +101,9 @@ app.get("/vehicle/search/:model", async (req, res) => {
 
     try {
         const found = vehicle_list.find((vehi) => vehi.model === req.params.model);
+
         if (found) {
+            console.log("Found vehicle:", found);
             res.status(200).json(found);
         }
         else {

@@ -25,7 +25,6 @@ class Boat extends Vehicle {
 class Plane extends Vehicle {
 }
 // Init empty list of vehicles
-// let vehicle_list: Vehicle[] = [];
 let vehicle_list = [];
 app.post("/vehicle/add", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -84,6 +83,7 @@ app.get("/vehicle/search/:model", (req, res) => __awaiter(void 0, void 0, void 0
     try {
         const found = vehicle_list.find((vehi) => vehi.model === req.params.model);
         if (found) {
+            console.log("Found vehicle:", found);
             res.status(200).json(found);
         }
         else {
