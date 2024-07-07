@@ -16,6 +16,23 @@ type Vehicle = {
 // Init empty list of vehicles
 let vehicle_list: Vehicle[] = [];
 
+// Route to find vehicle with specific model
+app.get("/vehicle/search/:model", async (req, res) => {
+
+    try {
+        const found = vehicle_list.find((vehi) => vehi.model === req.params.model);
+        if (found) {
+            res.status(200).json(found);
+        }
+        else {
+            res.status(404).send("Vehicle not found");
+        }
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("Internal server error while finding vehicle");
+    }
+
+});
 
 // Route to add vehicles
 app.post("/vehicle/add", (req, res) => {
